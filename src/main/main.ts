@@ -50,9 +50,9 @@ ipcMain.on('shutdown', (evt) => {
 
 ipcMain.on('hoverMove', async (evt) => {
   evt.reply('hoverMove');
-  mainWindow?.setPosition(0, 150, true);
+  mainWindow?.setPosition(20, 150, true);
   await setTimeout(3000);
-  mainWindow?.setPosition(0, 0, true);
+  mainWindow?.setPosition(20, 10, true);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -95,7 +95,7 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 120,
+    width: 200,
     height: 50,
     icon: getAssetPath('icon.png'),
     // 閉じるボタンなどを非表示にする
@@ -112,7 +112,7 @@ const createWindow = async () => {
   mainWindow.setAlwaysOnTop(true, 'screen-saver'); // 常に最前面に表示する
   mainWindow.setVisibleOnAllWorkspaces(true); // ワークスペース（デスクトップ）を移動しても表示される
   mainWindow.loadURL(resolveHtmlPath('index.html'));
-  mainWindow.setPosition(10, 10);
+  mainWindow.setPosition(20, 10);
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {

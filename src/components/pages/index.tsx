@@ -1,6 +1,7 @@
 import { Box, Stack, styled } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import Timer from 'components/organisms/Timer';
 
 const StyledPowerButton = styled(Box)`
   width: 40px;
@@ -30,6 +31,8 @@ export default () => {
       <StyledPowerButton onClick={shutdown}>
         <PowerSettingsNewIcon />
       </StyledPowerButton>
+
+      <Timer />
 
       <KeyboardArrowDownIcon
         sx={{
