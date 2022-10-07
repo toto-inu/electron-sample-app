@@ -7,7 +7,6 @@ export default () => {
   };
   return (
     <Stack spacing={4}>
-      <Box>Todo-List</Box>
       <Button name="シャットダウン" onClick={shutdownHandler} />
     </Stack>
   );

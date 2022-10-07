@@ -15,6 +15,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+app.dock.hide();
+
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -84,17 +86,24 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 100,
+    height: 50,
     icon: getAssetPath('icon.png'),
+    // 閉じるボタンなどを非表示にする
+    frame: false,
     webPreferences: {
+      devTools: false,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });
 
+  // ref: https://syobochim.hatenablog.com/entry/2020/11/16/224333
+  mainWindow.setAlwaysOnTop(true, 'screen-saver'); // 常に最前面に表示する
+  mainWindow.setVisibleOnAllWorkspaces(true); // ワークスペース（デスクトップ）を移動しても表示される
   mainWindow.loadURL(resolveHtmlPath('index.html'));
+  mainWindow.setPosition(10, 10);
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
