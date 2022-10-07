@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
@@ -15,12 +16,13 @@ const Hello = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <button type="button">
-            <span role="img" aria-label="books">
+          <Button sx={{ backgroundColor: 'white' }}>Read out docs</Button>
+          {/* <button type="button">
+            <span role="img" aria-label="books"></span>
               📚
             </span>
             Read our docs
-          </button>
+          </button> */}
         </a>
         <a
           href="https://github.com/sponsors/electron-react-boilerplate"
