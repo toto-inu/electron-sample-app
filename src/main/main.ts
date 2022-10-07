@@ -31,6 +31,19 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+ipcMain.on('shutdown', (evt) => {
+  evt.reply('shutdown');
+  const shutdown = require('electron-shutdown-command');
+
+  shutdown.shutdown({
+    force: true,
+    // timerseconds: 60,
+    sudo: true,
+    debug: false,
+    quitapp: true,
+  });
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
