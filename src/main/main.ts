@@ -15,6 +15,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+const { setTimeout } = require('timers/promises');
+
 app.dock.hide();
 
 class AppUpdater {
@@ -44,6 +46,13 @@ ipcMain.on('shutdown', (evt) => {
     debug: false,
     quitapp: true,
   });
+});
+
+ipcMain.on('hoverMove', async (evt) => {
+  evt.reply('hoverMove');
+  mainWindow?.setPosition(0, 150, true);
+  await setTimeout(3000);
+  mainWindow?.setPosition(0, 0, true);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -86,7 +95,7 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 100,
+    width: 120,
     height: 50,
     icon: getAssetPath('icon.png'),
     // 閉じるボタンなどを非表示にする
