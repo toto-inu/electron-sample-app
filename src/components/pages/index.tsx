@@ -2,6 +2,7 @@ import { Box, Stack, styled } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import Timer from 'components/organisms/Timer';
+import DialogTimer from 'components/organisms/DialogTimer';
 
 const StyledPowerButton = styled(Box)`
   width: 40px;
@@ -27,12 +28,28 @@ export default () => {
     window.electron.ipcRenderer.sendMessage('hoverMove', []);
   };
   return (
-    <Stack direction="row" alignItems="center" spacing="12px">
+    <Stack
+      direction="row"
+      alignItems="center"
+      spacing="12px"
+      sx={{
+        position: 'absolute',
+        padding: '8px',
+        top: '0px',
+        left: '0px',
+        background: `linear-gradient(
+        200.96deg,
+        #fedc2a -29.09%,
+        #dd5789 51.77%,
+        #7a2c9e 129.35%
+      )`,
+      }}
+    >
       <StyledPowerButton onClick={shutdown}>
         <PowerSettingsNewIcon />
       </StyledPowerButton>
 
-      <Timer />
+      <DialogTimer />
 
       <KeyboardArrowDownIcon
         sx={{

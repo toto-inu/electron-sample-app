@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 
-export default () => {
+export default ({ lastTime }: any) => {
   const {
     seconds,
     minutes,
@@ -18,10 +18,13 @@ export default () => {
 
   useEffect(() => {
     const time = new Date();
-    time.setSeconds(time.getSeconds() + 5);
+    time.setHours(time.getHours() + lastTime[0]);
+    time.setMinutes(time.getMinutes() + lastTime[1]);
+    time.setSeconds(time.getSeconds() + lastTime[2]);
+    console.log('🦊', time, lastTime);
     restart(time);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [lastTime]);
 
   const formatTime = (h: number, min: number, sec: number) => {
     return `${String(h).padStart(2, '0')}:${String(min).padStart(

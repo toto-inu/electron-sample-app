@@ -55,6 +55,15 @@ ipcMain.on('hoverMove', async (evt) => {
   mainWindow?.setPosition(20, 10, true);
 });
 
+ipcMain.on('resizeWindow', async (evt, [width, height]) => {
+  evt.reply('resizeWindow');
+  mainWindow?.setSize(width, height);
+});
+
+ipcMain.on('debug', (evt, [message]) => {
+  console.log('🐕🐕🐕', message);
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -92,7 +101,6 @@ const createWindow = async () => {
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
   };
-
   mainWindow = new BrowserWindow({
     show: false,
     width: 200,
@@ -100,6 +108,8 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     // 閉じるボタンなどを非表示にする
     frame: false,
+    transparent: true,
+    resizable: false,
     webPreferences: {
       devTools: false,
       preload: app.isPackaged
@@ -113,6 +123,8 @@ const createWindow = async () => {
   mainWindow.setVisibleOnAllWorkspaces(true); // ワークスペース（デスクトップ）を移動しても表示される
   mainWindow.loadURL(resolveHtmlPath('index.html'));
   mainWindow.setPosition(20, 10);
+  // mainWindow.setIgnoreMouseEvents(true);
+  // mainWindow.maximize();
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
